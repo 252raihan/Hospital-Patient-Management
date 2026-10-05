@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediCare Hospital — Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <span class="brand-icon" aria-hidden="true">✚</span>
+        <span class="brand-name">MediCare</span>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+        <a href="#" class="nav-item active" data-page="dashboard">
+          <span class="nav-icon">▦</span> Dashboard
+        </a>
+        <a href="#" class="nav-item" data-page="patients">
+          <span class="nav-icon">☰</span> Patients
+        </a>
+        <a href="#" class="nav-item" data-page="settings">
+          <span class="nav-icon">⚙</span> Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p>Hospital Management System</p>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main">
+
+      <header class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+
+        <div class="header-brand">
+          <span class="header-logo" aria-hidden="true">✚</span>
+          <h1 class="header-title">MediCare Hospital</h1>
+        </div>
+
+        <div class="topbar-right">
+          <button class="btn btn-outline btn-danger" id="resetBtn">Reset Data</button>
+          <span class="user-name">Admin</span>
+          <div class="user-avatar">A</div>
+        </div>
+      </header>
+
+      <main class="content" id="content">
+
+        <!-- ============ Dashboard ============ -->
+        <section class="page" data-page-view="dashboard">
+
+          <!-- Stats -->
+          <section class="stats-grid" aria-label="Hospital statistics">
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label">Total Patients</h3>
+                <p class="stat-value">128</p>
+              </div>
+              <span class="stat-icon stat-blue" aria-hidden="true">👥</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label">Waiting</h3>
+                <p class="stat-value">14</p>
+              </div>
+              <span class="stat-icon stat-orange" aria-hidden="true">⏳</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label">Admitted</h3>
+                <p class="stat-value">36</p>
+              </div>
+              <span class="stat-icon stat-green" aria-hidden="true">🛏</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label">Emergency</h3>
+                <p class="stat-value">5</p>
+              </div>
+              <span class="stat-icon stat-red" aria-hidden="true">🚨</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label">Discharged</h3>
+                <p class="stat-value">73</p>
+              </div>
+              <span class="stat-icon stat-teal" aria-hidden="true">✅</span>
+            </article>
+          </section>
+
+          <!-- Patient management -->
+          <section class="panel" aria-labelledby="dashMgmtHeading">
+            <div class="panel-head">
+              <h2 class="panel-title" id="dashMgmtHeading">Patient Management</h2>
+              <button class="btn btn-primary" id="addPatientBtn">+ Add Patient</button>
+            </div>
+
+            <form class="filters">
+              <input type="search" class="input" placeholder="Search by name, ID, phone…" aria-label="Search patients" />
+              <select class="input" aria-label="Department filter">
+                <option value="">All Departments</option>
+                <option>Cardiology</option>
+                <option>Neurology</option>
+                <option>Orthopedics</option>
+                <option>Pediatrics</option>
+                <option>General</option>
+              </select>
+              <select class="input" aria-label="Status filter">
+                <option value="">All Statuses</option>
+                <option>Waiting</option>
+                <option>Admitted</option>
+                <option>Emergency</option>
+                <option>Discharged</option>
+              </select>
+              <select class="input" aria-label="Priority filter">
+                <option value="">All Priorities</option>
+                <option>Critical</option>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+              </select>
+            </form>
+
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Patient ID</th>
+                    <th>Name</th>
+                    <th>Age / Gender</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Admitted On</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>P-0001</td>
+                    <td>Rahim Uddin</td>
+                    <td>45 / Male</td>
+                    <td>Cardiology</td>
+                    <td><span class="badge badge-waiting">Waiting</span></td>
+                    <td><span class="badge badge-high">High</span></td>
+                    <td>2026-10-04</td>
+                    <td><button class="btn btn-sm btn-outline">View</button></td>
+                  </tr>
+                  <tr>
+                    <td>P-0002</td>
+                    <td>Fatema Begum</td>
+                    <td>29 / Female</td>
+                    <td>Pediatrics</td>
+                    <td><span class="badge badge-admitted">Admitted</span></td>
+                    <td><span class="badge badge-medium">Medium</span></td>
+                    <td>2026-10-03</td>
+                    <td><button class="btn btn-sm btn-outline">View</button></td>
+                  </tr>
+                  <tr>
+                    <td>P-0003</td>
+                    <td>Abdul Karim</td>
+                    <td>63 / Male</td>
+                    <td>Neurology</td>
+                    <td><span class="badge badge-emergency">Emergency</span></td>
+                    <td><span class="badge badge-critical">Critical</span></td>
+                    <td>2026-10-05</td>
+                    <td><button class="btn btn-sm btn-outline">View</button></td>
+                  </tr>
+                  <tr>
+                    <td>P-0004</td>
+                    <td>Nusrat Jahan</td>
+                    <td>34 / Female</td>
+                    <td>Orthopedics</td>
+                    <td><span class="badge badge-discharged">Discharged</span></td>
+                    <td><span class="badge badge-low">Low</span></td>
+                    <td>2026-09-28</td>
+                    <td><button class="btn btn-sm btn-outline">View</button></td>
+                  </tr>
+                  <tr>
+                    <td>P-0005</td>
+                    <td>Hasan Ali</td>
+                    <td>51 / Male</td>
+                    <td>General</td>
+                    <td><span class="badge badge-waiting">Waiting</span></td>
+                    <td><span class="badge badge-medium">Medium</span></td>
+                    <td>2026-10-05</td>
+                    <td><button class="btn btn-sm btn-outline">View</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <!-- ============ Patients ============ -->
+        <section class="page hidden" data-page-view="patients">
+          <section class="panel" aria-labelledby="patientsHeading">
+            <div class="panel-head">
+              <h2 class="panel-title" id="patientsHeading">All Patients</h2>
+              <button class="btn btn-primary">+ Add Patient</button>
+            </div>
+            <p class="placeholder-text">Patient management will be added here.</p>
+          </section>
+        </section>
+
+        <!-- ============ Settings ============ -->
+        <section class="page hidden" data-page-view="settings">
+          <section class="panel">
+            <div class="panel-head">
+              <h2 class="panel-title">Settings</h2>
+            </div>
+            <p class="placeholder-text">Settings options will be added here.</p>
+          </section>
+        </section>
+
+      </main>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
