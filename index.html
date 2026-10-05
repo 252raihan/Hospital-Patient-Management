@@ -18,18 +18,21 @@
 
       <nav class="sidebar-nav" aria-label="Main navigation">
         <a href="#" class="nav-item active" data-page="dashboard">
-          <span class="nav-icon">▦</span> Dashboard
+          <span class="nav-icon">▦</span> <span data-i18n="navDashboard">Dashboard</span>
         </a>
         <a href="#" class="nav-item" data-page="patients">
-          <span class="nav-icon">☰</span> Patients
+          <span class="nav-icon">☰</span> <span data-i18n="navPatients">Patients</span>
+        </a>
+        <a href="#" class="nav-item" data-page="appointments">
+          <span class="nav-icon">🗓</span> <span data-i18n="navAppointments">Appointments</span>
         </a>
         <a href="#" class="nav-item" data-page="settings">
-          <span class="nav-icon">⚙</span> Settings
+          <span class="nav-icon">⚙</span> <span data-i18n="navSettings">Settings</span>
         </a>
       </nav>
 
       <div class="sidebar-footer">
-        <p>Hospital Management System</p>
+        <p data-i18n="hospitalSystem">Hospital Management System</p>
       </div>
     </aside>
 
@@ -41,12 +44,16 @@
 
         <div class="header-brand">
           <span class="header-logo" aria-hidden="true">✚</span>
-          <h1 class="header-title">MediCare Hospital</h1>
+          <h1 class="header-title" data-i18n="hospitalName">MediCare Hospital</h1>
         </div>
 
         <div class="topbar-right">
-          <button class="btn btn-outline btn-danger" id="resetBtn">Reset Data</button>
-          <span class="user-name">Admin</span>
+          <div class="lang-toggle" role="group" aria-label="Language">
+            <button type="button" class="lang-btn" data-lang-set="en" aria-pressed="true">English</button>
+            <button type="button" class="lang-btn" data-lang-set="bn" aria-pressed="false">বাংলা</button>
+          </div>
+          <button class="btn btn-outline btn-danger" id="resetBtn" data-i18n="resetData">Reset Data</button>
+          <span class="user-name" data-i18n="admin">Admin</span>
           <div class="user-avatar">A</div>
         </div>
       </header>
@@ -60,35 +67,35 @@
           <section class="stats-grid" aria-label="Hospital statistics">
             <article class="stat-card">
               <div class="stat-info">
-                <h3 class="stat-label">Total Patients</h3>
+                <h3 class="stat-label" data-i18n="totalPatients">Total Patients</h3>
                 <p class="stat-value" id="statTotal">0</p>
               </div>
               <span class="stat-icon stat-blue" aria-hidden="true">👥</span>
             </article>
             <article class="stat-card">
               <div class="stat-info">
-                <h3 class="stat-label">Waiting</h3>
+                <h3 class="stat-label" data-i18n="statusWaiting">Waiting</h3>
                 <p class="stat-value" id="statWaiting">0</p>
               </div>
               <span class="stat-icon stat-orange" aria-hidden="true">⏳</span>
             </article>
             <article class="stat-card">
               <div class="stat-info">
-                <h3 class="stat-label">Admitted</h3>
+                <h3 class="stat-label" data-i18n="statusAdmitted">Admitted</h3>
                 <p class="stat-value" id="statAdmitted">0</p>
               </div>
               <span class="stat-icon stat-green" aria-hidden="true">🛏</span>
             </article>
             <article class="stat-card">
               <div class="stat-info">
-                <h3 class="stat-label">Emergency</h3>
+                <h3 class="stat-label" data-i18n="statusEmergency">Emergency</h3>
                 <p class="stat-value" id="statEmergency">0</p>
               </div>
               <span class="stat-icon stat-red" aria-hidden="true">🚨</span>
             </article>
             <article class="stat-card">
               <div class="stat-info">
-                <h3 class="stat-label">Discharged</h3>
+                <h3 class="stat-label" data-i18n="statusDischarged">Discharged</h3>
                 <p class="stat-value" id="statDischarged">0</p>
               </div>
               <span class="stat-icon stat-teal" aria-hidden="true">✅</span>
@@ -98,13 +105,13 @@
           <!-- Patient management -->
           <section class="panel" aria-labelledby="dashMgmtHeading">
             <div class="panel-head">
-              <h2 class="panel-title" id="dashMgmtHeading">Patient Management</h2>
-              <button class="btn btn-primary" id="addPatientBtn">+ Add Patient</button>
+              <h2 class="panel-title" id="dashMgmtHeading" data-i18n="patientManagement">Patient Management</h2>
+              <button class="btn btn-primary" id="addPatientBtn" data-add-patient data-i18n="addPatient">+ Add Patient</button>
             </div>
 
             <form class="filters" id="dashboardFilters">
-              <input type="search" class="input" placeholder="Search by name, ID, phone…" aria-label="Search patients" />
-              <select class="input" aria-label="Department filter">
+              <input type="search" class="input" id="searchInput" placeholder="Search by name, ID, phone…" data-i18n-placeholder="searchPlaceholder" data-i18n-aria="searchPlaceholder" aria-label="Search patients" />
+              <select class="input" id="departmentFilter" aria-label="Department filter">
                 <option value="">All Departments</option>
                 <option>Cardiology</option>
                 <option>Medicine</option>
@@ -113,41 +120,42 @@
                 <option>Pediatrics</option>
                 <option>Emergency</option>
               </select>
-              <select class="input" aria-label="Status filter">
+              <select class="input" id="statusFilter" aria-label="Status filter">
                 <option value="">All Statuses</option>
                 <option>Waiting</option>
                 <option>Admitted</option>
                 <option>Emergency</option>
                 <option>Discharged</option>
               </select>
-              <select class="input" aria-label="Priority filter">
+              <select class="input" id="priorityFilter" aria-label="Priority filter">
                 <option value="">All Priorities</option>
                 <option>Critical</option>
                 <option>High</option>
                 <option>Medium</option>
                 <option>Low</option>
               </select>
+              <button type="button" class="btn btn-outline" id="clearFiltersBtn" data-i18n="clearFilters">Clear Filters</button>
             </form>
 
             <div class="table-wrap">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Patient ID</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Department</th>
-                    <th>Doctor</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th data-i18n="colPatientId">Patient ID</th>
+                    <th data-i18n="colName">Name</th>
+                    <th data-i18n="colAge">Age</th>
+                    <th data-i18n="colGender">Gender</th>
+                    <th data-i18n="colDepartment">Department</th>
+                    <th data-i18n="colDoctor">Doctor</th>
+                    <th data-i18n="colPriority">Priority</th>
+                    <th data-i18n="colStatus">Status</th>
+                    <th data-i18n="colActions">Actions</th>
                   </tr>
                 </thead>
                 <tbody id="dashboardTableBody"></tbody>
               </table>
             </div>
-            <p class="empty-state hidden" id="dashboardEmpty">No patients found.</p>
+            <p class="empty-state hidden" id="dashboardEmpty" data-i18n="noPatientsFound">No patients found.</p>
           </section>
         </section>
 
@@ -155,39 +163,130 @@
         <section class="page hidden" data-page-view="patients">
           <section class="panel" aria-labelledby="patientsHeading">
             <div class="panel-head">
-              <h2 class="panel-title" id="patientsHeading">All Patients</h2>
-              <button class="btn btn-primary">+ Add Patient</button>
+              <h2 class="panel-title" id="patientsHeading" data-i18n="allPatients">All Patients</h2>
+              <button class="btn btn-primary" data-add-patient data-i18n="addPatient">+ Add Patient</button>
             </div>
 
             <div class="table-wrap">
               <table class="table">
                 <thead>
                   <tr>
-                    <th>Patient ID</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Department</th>
-                    <th>Doctor</th>
-                    <th>Priority</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th data-i18n="colPatientId">Patient ID</th>
+                    <th data-i18n="colName">Name</th>
+                    <th data-i18n="colAge">Age</th>
+                    <th data-i18n="colGender">Gender</th>
+                    <th data-i18n="colDepartment">Department</th>
+                    <th data-i18n="colDoctor">Doctor</th>
+                    <th data-i18n="colPriority">Priority</th>
+                    <th data-i18n="colStatus">Status</th>
+                    <th data-i18n="colActions">Actions</th>
                   </tr>
                 </thead>
                 <tbody id="patientsTableBody"></tbody>
               </table>
             </div>
-            <p class="empty-state hidden" id="patientsEmpty">No patients found.</p>
+            <p class="empty-state hidden" id="patientsEmpty" data-i18n="noPatientsFound">No patients found.</p>
+          </section>
+        </section>
+
+        <!-- ============ Appointments ============ -->
+        <section class="page hidden" data-page-view="appointments">
+
+          <!-- Appointment stats -->
+          <section class="stats-grid" aria-label="Appointment statistics">
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label" data-i18n="aptTotal">Total Appointments</h3>
+                <p class="stat-value" id="aptStatTotal">0</p>
+              </div>
+              <span class="stat-icon stat-blue" aria-hidden="true">🗓</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label" data-i18n="aptToday">Today's Appointments</h3>
+                <p class="stat-value" id="aptStatToday">0</p>
+              </div>
+              <span class="stat-icon stat-orange" aria-hidden="true">📅</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label" data-i18n="aptPending">Pending</h3>
+                <p class="stat-value" id="aptStatPending">0</p>
+              </div>
+              <span class="stat-icon stat-orange" aria-hidden="true">⏳</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label" data-i18n="aptConfirmed">Confirmed</h3>
+                <p class="stat-value" id="aptStatConfirmed">0</p>
+              </div>
+              <span class="stat-icon stat-green" aria-hidden="true">✅</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label" data-i18n="aptCompleted">Completed</h3>
+                <p class="stat-value" id="aptStatCompleted">0</p>
+              </div>
+              <span class="stat-icon stat-teal" aria-hidden="true">🏁</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-info">
+                <h3 class="stat-label" data-i18n="aptCancelled">Cancelled</h3>
+                <p class="stat-value" id="aptStatCancelled">0</p>
+              </div>
+              <span class="stat-icon stat-red" aria-hidden="true">✖</span>
+            </article>
+          </section>
+
+          <section class="panel" aria-labelledby="aptHeading">
+            <div class="panel-head">
+              <h2 class="panel-title" id="aptHeading" data-i18n="navAppointments">Appointments</h2>
+              <div class="panel-actions">
+                <button type="button" class="btn btn-outline" id="aptTodayBtn" data-i18n="aptTodayBtn">Today's Appointments</button>
+                <button type="button" class="btn btn-outline" id="aptUpcomingBtn" data-i18n="aptUpcomingBtn">Upcoming Appointments</button>
+                <button type="button" class="btn btn-outline" id="aptShowAllBtn" data-i18n="aptShowAll">Show All</button>
+                <button type="button" class="btn btn-primary" id="addAppointmentBtn" data-add-appointment data-i18n="aptAdd">+ Add Appointment</button>
+              </div>
+            </div>
+
+            <form class="filters apt-filters" id="appointmentFilters">
+              <input type="search" class="input" id="aptSearchInput" placeholder="Search by ID, patient, doctor, purpose…" data-i18n-placeholder="aptSearchPlaceholder" data-i18n-aria="aptSearchPlaceholder" aria-label="Search appointments" />
+              <select class="input" id="aptDoctorFilter" aria-label="Doctor filter"></select>
+              <select class="input" id="aptDepartmentFilter" aria-label="Department filter"></select>
+              <select class="input" id="aptStatusFilter" aria-label="Status filter"></select>
+              <select class="input" id="aptPriorityFilter" aria-label="Priority filter"></select>
+              <input type="date" class="input" id="aptDateFilter" aria-label="Date filter" />
+              <button type="button" class="btn btn-outline" id="aptClearFiltersBtn" data-i18n="clearFilters">Clear Filters</button>
+            </form>
+
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th data-i18n="aptColId">Appointment ID</th>
+                    <th data-i18n="aptColPatient">Patient</th>
+                    <th data-i18n="colDoctor">Doctor</th>
+                    <th data-i18n="colDepartment">Department</th>
+                    <th data-i18n="aptColDate">Date</th>
+                    <th data-i18n="aptColTime">Time</th>
+                    <th data-i18n="colPriority">Priority</th>
+                    <th data-i18n="colStatus">Status</th>
+                    <th data-i18n="colActions">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="appointmentsTableBody"></tbody>
+              </table>
+            </div>
+            <p class="empty-state hidden" id="appointmentsEmpty" data-i18n="aptNoFound">No appointments found.</p>
           </section>
         </section>
 
         <!-- ============ Settings ============ -->
-        <section class="page hidden" data-page-view="settings">
-          <section class="panel">
+        <section class="page hidden" data-page-view="settings">          <section class="panel">
             <div class="panel-head">
-              <h2 class="panel-title">Settings</h2>
+              <h2 class="panel-title" data-i18n="navSettings">Settings</h2>
             </div>
-            <p class="placeholder-text">Settings options will be added here.</p>
+            <p class="placeholder-text" data-i18n="settingsPlaceholder">Settings options will be added here.</p>
           </section>
         </section>
 
@@ -200,83 +299,258 @@
   <div class="modal-overlay hidden" id="patientModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
       <div class="modal-head">
-        <h2 class="modal-title" id="modalTitle">Add New Patient</h2>
-        <button type="button" class="modal-close" id="modalClose" aria-label="Close">✕</button>
+        <h2 class="modal-title" id="modalTitle" data-i18n="addNewPatient">Add New Patient</h2>
+        <button type="button" class="modal-close" id="modalClose" aria-label="Close" data-i18n-aria="close">✕</button>
       </div>
 
       <form class="modal-body" id="patientForm" novalidate>
         <div class="form-grid">
           <div class="form-field">
-            <label for="fieldName">Patient Name <span class="req">*</span></label>
+            <label for="fieldName" data-i18n="patientName">Patient Name</label> <span class="req">*</span>
             <input type="text" class="input" id="fieldName" name="name" />
             <span class="field-error" id="errorName"></span>
           </div>
 
           <div class="form-field">
-            <label for="fieldAge">Age <span class="req">*</span></label>
+            <label for="fieldAge" data-i18n="colAge">Age</label> <span class="req">*</span>
             <input type="number" class="input" id="fieldAge" name="age" min="1" step="1" />
             <span class="field-error" id="errorAge"></span>
           </div>
 
           <div class="form-field">
-            <label for="fieldGender">Gender <span class="req">*</span></label>
+            <label for="fieldGender" data-i18n="gender">Gender</label> <span class="req">*</span>
             <select class="input" id="fieldGender" name="gender">
-              <option value="">Select gender</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
+              <option value="" data-i18n="selectGender">Select gender</option>
+              <option value="Male" data-i18n="genderMale">Male</option>
+              <option value="Female" data-i18n="genderFemale">Female</option>
+              <option value="Other" data-i18n="genderOther">Other</option>
             </select>
             <span class="field-error" id="errorGender"></span>
           </div>
 
           <div class="form-field">
-            <label for="fieldPhone">Phone <span class="optional">(optional)</span></label>
+            <label for="fieldPhone"><span data-i18n="phone">Phone</span> <span class="optional" data-i18n="optional">(optional)</span></label>
             <input type="tel" class="input" id="fieldPhone" name="phone" placeholder="01XXXXXXXXX" />
             <span class="field-error" id="errorPhone"></span>
           </div>
 
           <div class="form-field">
-            <label for="fieldDepartment">Department <span class="req">*</span></label>
+            <label for="fieldDepartment" data-i18n="colDepartment">Department</label> <span class="req">*</span>
             <select class="input" id="fieldDepartment" name="department">
-              <option value="">Select department</option>
+              <option value=""></option>
             </select>
             <span class="field-error" id="errorDepartment"></span>
           </div>
 
           <div class="form-field">
-            <label for="fieldDoctor">Doctor <span class="req">*</span></label>
+            <label for="fieldDoctor" data-i18n="colDoctor">Doctor</label> <span class="req">*</span>
             <input type="text" class="input" id="fieldDoctor" name="doctor" placeholder="Dr. ..." />
             <span class="field-error" id="errorDoctor"></span>
           </div>
 
           <div class="form-field">
-            <label for="fieldPriority">Priority <span class="req">*</span></label>
+            <label for="fieldPriority" data-i18n="colPriority">Priority</label> <span class="req">*</span>
             <select class="input" id="fieldPriority" name="priority">
-              <option value="">Select priority</option>
+              <option value=""></option>
             </select>
             <span class="field-error" id="errorPriority"></span>
           </div>
 
           <div class="form-field">
-            <label for="fieldStatus">Status <span class="req">*</span></label>
+            <label for="fieldStatus" data-i18n="colStatus">Status</label> <span class="req">*</span>
             <select class="input" id="fieldStatus" name="status">
-              <option value="">Select status</option>
+              <option value=""></option>
             </select>
             <span class="field-error" id="errorStatus"></span>
           </div>
 
           <div class="form-field">
-            <label for="fieldAdmissionDate">Admission Date <span class="req">*</span></label>
+            <label for="fieldAdmissionDate" data-i18n="admissionDate">Admission Date</label> <span class="req">*</span>
             <input type="date" class="input" id="fieldAdmissionDate" name="admissionDate" />
             <span class="field-error" id="errorAdmissionDate"></span>
           </div>
         </div>
 
         <div class="modal-actions">
-          <button type="button" class="btn btn-outline" id="modalCancel">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Patient</button>
+          <button type="button" class="btn btn-outline" id="modalCancel" data-i18n="cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="formSubmitBtn" data-i18n="savePatient">Save Patient</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ============ View Patient Modal ============ -->
+  <div class="modal-overlay hidden" id="viewModal" role="dialog" aria-modal="true" aria-labelledby="viewModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 class="modal-title" id="viewModalTitle" data-i18n="patientDetails">Patient Details</h2>
+        <button type="button" class="modal-close" id="viewClose" aria-label="Close" data-i18n-aria="close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <dl class="details-grid" id="viewDetails"></dl>
+      </div>
+
+      <div class="modal-actions modal-actions-plain">
+        <button type="button" class="btn btn-primary" id="viewCloseBtn" data-i18n="close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Delete Confirmation Modal ============ -->
+  <div class="modal-overlay hidden" id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="modal modal-sm">
+      <div class="modal-head">
+        <h2 class="modal-title" id="deleteModalTitle" data-i18n="deletePatient">Delete Patient</h2>
+        <button type="button" class="modal-close" id="deleteClose" aria-label="Close" data-i18n-aria="close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="confirm-text">
+          <span data-i18n="deleteConfirmQuestion">Are you sure you want to delete</span>
+          <strong id="deletePatientName"></strong>
+          <span class="confirm-id" id="deletePatientId"></span>?
+        </p>
+        <p class="confirm-warning" data-i18n="cannotBeUndone">This action cannot be undone.</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" id="deleteCancel" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-danger-solid" id="deleteConfirm" data-i18n="deletePatient">Delete Patient</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Reset Demo Data Modal ============ -->
+  <div class="modal-overlay hidden" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="resetModalTitle">
+    <div class="modal modal-sm">
+      <div class="modal-head">
+        <h2 class="modal-title" id="resetModalTitle" data-i18n="resetTitle">Reset Demo Data</h2>
+        <button type="button" class="modal-close" id="resetClose" aria-label="Close" data-i18n-aria="close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="confirm-text" data-i18n="resetConfirmQuestion">
+          Are you sure you want to reset all patient data?
+        </p>
+        <p class="confirm-warning" data-i18n="resetWarning">
+          All current patient changes will be removed and the original sample
+          dataset will be restored. This action cannot be undone.
+        </p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" id="resetCancel" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-danger-solid" id="resetConfirm" data-i18n="resetData">Reset Data</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Add / Edit Appointment Modal ============ -->
+  <div class="modal-overlay hidden" id="appointmentModal" role="dialog" aria-modal="true" aria-labelledby="aptModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 class="modal-title" id="aptModalTitle" data-i18n="aptAddNew">Add New Appointment</h2>
+        <button type="button" class="modal-close" id="aptModalClose" aria-label="Close" data-i18n-aria="close">✕</button>
+      </div>
+
+      <form class="modal-body" id="appointmentForm" novalidate>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="aptFieldPatient" data-i18n="aptPatient">Patient</label> <span class="req">*</span>
+            <select class="input" id="aptFieldPatient" name="patient"></select>
+            <span class="field-error" id="aptErrorPatient"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="aptFieldDoctor" data-i18n="colDoctor">Doctor</label> <span class="req">*</span>
+            <select class="input" id="aptFieldDoctor" name="doctor"></select>
+            <span class="field-error" id="aptErrorDoctor"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="aptFieldDepartment" data-i18n="colDepartment">Department</label>
+            <select class="input" id="aptFieldDepartment" name="department"></select>
+            <span class="field-error" id="aptErrorDepartment"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="aptFieldDate" data-i18n="aptDate">Appointment Date</label> <span class="req">*</span>
+            <input type="date" class="input" id="aptFieldDate" name="date" />
+            <span class="field-error" id="aptErrorDate"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="aptFieldTime" data-i18n="aptTime">Appointment Time</label> <span class="req">*</span>
+            <input type="time" class="input" id="aptFieldTime" name="time" />
+            <span class="field-error" id="aptErrorTime"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="aptFieldPurpose"><span data-i18n="aptPurpose">Visit Purpose</span> <span class="optional" data-i18n="optional">(optional)</span></label>
+            <input type="text" class="input" id="aptFieldPurpose" name="purpose" data-i18n-placeholder="aptPurposePlaceholder" placeholder="e.g. General Checkup" />
+            <span class="field-error" id="aptErrorPurpose"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="aptFieldPriority" data-i18n="colPriority">Priority</label> <span class="req">*</span>
+            <select class="input" id="aptFieldPriority" name="priority"></select>
+            <span class="field-error" id="aptErrorPriority"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="aptFieldStatus" data-i18n="colStatus">Status</label> <span class="req">*</span>
+            <select class="input" id="aptFieldStatus" name="status"></select>
+            <span class="field-error" id="aptErrorStatus"></span>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="aptModalCancel" data-i18n="cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="aptFormSubmitBtn" data-i18n="aptSave">Save Appointment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ View Appointment Modal ============ -->
+  <div class="modal-overlay hidden" id="appointmentViewModal" role="dialog" aria-modal="true" aria-labelledby="aptViewModalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 class="modal-title" id="aptViewModalTitle" data-i18n="aptDetails">Appointment Details</h2>
+        <button type="button" class="modal-close" id="aptViewClose" aria-label="Close" data-i18n-aria="close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <dl class="details-grid" id="aptViewDetails"></dl>
+      </div>
+
+      <div class="modal-actions modal-actions-plain">
+        <button type="button" class="btn btn-primary" id="aptViewCloseBtn" data-i18n="close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Delete Appointment Modal ============ -->
+  <div class="modal-overlay hidden" id="appointmentDeleteModal" role="dialog" aria-modal="true" aria-labelledby="aptDeleteModalTitle">
+    <div class="modal modal-sm">
+      <div class="modal-head">
+        <h2 class="modal-title" id="aptDeleteModalTitle" data-i18n="aptDeleteTitle">Delete Appointment</h2>
+        <button type="button" class="modal-close" id="aptDeleteClose" aria-label="Close" data-i18n-aria="close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="confirm-text" data-i18n="aptDeleteQuestion">
+          Are you sure you want to delete this appointment?
+        </p>
+        <p class="confirm-text"><strong id="aptDeleteRef"></strong></p>
+        <p class="confirm-warning" data-i18n="cannotBeUndone">This action cannot be undone.</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" id="aptDeleteCancel" data-i18n="cancel">Cancel</button>
+        <button type="button" class="btn btn-danger-solid" id="aptDeleteConfirm" data-i18n="delete">Delete</button>
+      </div>
     </div>
   </div>
 

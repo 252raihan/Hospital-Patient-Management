@@ -175,6 +175,42 @@ body {
   gap: 10px;
 }
 
+/* ============ Language toggle ============ */
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.lang-btn {
+  border: none;
+  background: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.lang-btn:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.lang-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+.lang-btn + .lang-btn {
+  border-left: 1px solid var(--border);
+}
+
 .header-logo {
   width: 34px;
   height: 34px;
@@ -344,9 +380,23 @@ body {
 /* ============ Filters ============ */
 .filters {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
   gap: 12px;
   margin-bottom: 18px;
+  align-items: center;
+}
+
+/* Appointment filters carry two extra controls (Doctor + Date). */
+.apt-filters {
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr auto;
+}
+
+/* Action buttons grouped in a panel header. */
+.panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
 }
 
 /* ============ Table ============ */
@@ -399,6 +449,17 @@ body {
 .badge-high       { background: #fdeaea; color: #c0392b; }
 .badge-medium     { background: #fdf1e2; color: #b06a08; }
 .badge-low        { background: #e8edf5; color: #5a6b85; }
+
+/* Appointment status + priority badges (reuse the same visual system) */
+.badge-pending    { background: #fdf1e2; color: #b06a08; }
+.badge-confirmed  { background: #e6f0fd; color: #1a6edb; }
+.badge-completed  { background: #e6f7ec; color: #1c7c40; }
+.badge-cancelled  { background: #e8edf5; color: #5a6b85; }
+.badge-normal     { background: #e8edf5; color: #5a6b85; }
+
+/* Highlight today's appointments in the table. */
+.table tbody tr.is-today { background: #f2f8ff; }
+.table tbody tr.is-today:hover { background: #e9f3ff; }
 
 /* ============ Empty state ============ */
 .empty-state {
@@ -568,9 +629,75 @@ body {
   background: #c0392b;
 }
 
+/* ============ Patient details (View modal) ============ */
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 22px;
+  margin: 0;
+}
+
+.details-grid .detail-item {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+
+.details-grid dt {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.details-grid dd {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.modal-actions-plain {
+  padding: 0 24px 22px;
+  margin-top: 0;
+  border-top: none;
+}
+
+/* ============ Delete confirmation ============ */
+.modal-sm {
+  max-width: 440px;
+}
+
+.confirm-text {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.confirm-id {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.confirm-warning {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #c0392b;
+}
+
+.btn-danger-solid {
+  background: #c0392b;
+  color: #fff;
+}
+
+.btn-danger-solid:hover {
+  background: #a93226;
+}
+
 /* ============ Responsive ============ */
 @media (max-width: 1100px) {
-  .filters {
+  .filters,
+  .apt-filters {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -605,6 +732,29 @@ body {
     padding: 16px;
   }
 
+  /* Keep the topbar inside the viewport on small screens. */
+  .topbar {
+    padding: 12px 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .topbar-right {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .header-brand {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .lang-btn {
+    padding: 7px 10px;
+    font-size: 13px;
+  }
+
   .user-name {
     display: none;
   }
@@ -613,8 +763,17 @@ body {
     font-size: 16px;
   }
 
-  .filters {
+  .filters,
+  .apt-filters {
     grid-template-columns: 1fr;
+  }
+
+  .panel-actions {
+    width: 100%;
+  }
+
+  .panel-actions .btn {
+    flex: 1 1 auto;
   }
 
   .panel {
@@ -626,6 +785,10 @@ body {
   }
 
   .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .details-grid {
     grid-template-columns: 1fr;
   }
 
