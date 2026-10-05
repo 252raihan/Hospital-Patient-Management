@@ -61,35 +61,35 @@
             <article class="stat-card">
               <div class="stat-info">
                 <h3 class="stat-label">Total Patients</h3>
-                <p class="stat-value">128</p>
+                <p class="stat-value" id="statTotal">0</p>
               </div>
               <span class="stat-icon stat-blue" aria-hidden="true">👥</span>
             </article>
             <article class="stat-card">
               <div class="stat-info">
                 <h3 class="stat-label">Waiting</h3>
-                <p class="stat-value">14</p>
+                <p class="stat-value" id="statWaiting">0</p>
               </div>
               <span class="stat-icon stat-orange" aria-hidden="true">⏳</span>
             </article>
             <article class="stat-card">
               <div class="stat-info">
                 <h3 class="stat-label">Admitted</h3>
-                <p class="stat-value">36</p>
+                <p class="stat-value" id="statAdmitted">0</p>
               </div>
               <span class="stat-icon stat-green" aria-hidden="true">🛏</span>
             </article>
             <article class="stat-card">
               <div class="stat-info">
                 <h3 class="stat-label">Emergency</h3>
-                <p class="stat-value">5</p>
+                <p class="stat-value" id="statEmergency">0</p>
               </div>
               <span class="stat-icon stat-red" aria-hidden="true">🚨</span>
             </article>
             <article class="stat-card">
               <div class="stat-info">
                 <h3 class="stat-label">Discharged</h3>
-                <p class="stat-value">73</p>
+                <p class="stat-value" id="statDischarged">0</p>
               </div>
               <span class="stat-icon stat-teal" aria-hidden="true">✅</span>
             </article>
@@ -102,7 +102,7 @@
               <button class="btn btn-primary" id="addPatientBtn">+ Add Patient</button>
             </div>
 
-            <form class="filters">
+            <form class="filters" id="dashboardFilters">
               <input type="search" class="input" placeholder="Search by name, ID, phone…" aria-label="Search patients" />
               <select class="input" aria-label="Department filter">
                 <option value="">All Departments</option>
@@ -135,68 +135,19 @@
                   <tr>
                     <th>Patient ID</th>
                     <th>Name</th>
-                    <th>Age / Gender</th>
+                    <th>Age</th>
+                    <th>Gender</th>
                     <th>Department</th>
-                    <th>Status</th>
+                    <th>Doctor</th>
                     <th>Priority</th>
-                    <th>Admitted On</th>
+                    <th>Status</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>P-0001</td>
-                    <td>Rahim Uddin</td>
-                    <td>45 / Male</td>
-                    <td>Cardiology</td>
-                    <td><span class="badge badge-waiting">Waiting</span></td>
-                    <td><span class="badge badge-high">High</span></td>
-                    <td>2026-10-04</td>
-                    <td><button class="btn btn-sm btn-outline">View</button></td>
-                  </tr>
-                  <tr>
-                    <td>P-0002</td>
-                    <td>Fatema Begum</td>
-                    <td>29 / Female</td>
-                    <td>Pediatrics</td>
-                    <td><span class="badge badge-admitted">Admitted</span></td>
-                    <td><span class="badge badge-medium">Medium</span></td>
-                    <td>2026-10-03</td>
-                    <td><button class="btn btn-sm btn-outline">View</button></td>
-                  </tr>
-                  <tr>
-                    <td>P-0003</td>
-                    <td>Abdul Karim</td>
-                    <td>63 / Male</td>
-                    <td>Neurology</td>
-                    <td><span class="badge badge-emergency">Emergency</span></td>
-                    <td><span class="badge badge-critical">Critical</span></td>
-                    <td>2026-10-05</td>
-                    <td><button class="btn btn-sm btn-outline">View</button></td>
-                  </tr>
-                  <tr>
-                    <td>P-0004</td>
-                    <td>Nusrat Jahan</td>
-                    <td>34 / Female</td>
-                    <td>Orthopedics</td>
-                    <td><span class="badge badge-discharged">Discharged</span></td>
-                    <td><span class="badge badge-low">Low</span></td>
-                    <td>2026-09-28</td>
-                    <td><button class="btn btn-sm btn-outline">View</button></td>
-                  </tr>
-                  <tr>
-                    <td>P-0005</td>
-                    <td>Hasan Ali</td>
-                    <td>51 / Male</td>
-                    <td>General</td>
-                    <td><span class="badge badge-waiting">Waiting</span></td>
-                    <td><span class="badge badge-medium">Medium</span></td>
-                    <td>2026-10-05</td>
-                    <td><button class="btn btn-sm btn-outline">View</button></td>
-                  </tr>
-                </tbody>
+                <tbody id="dashboardTableBody"></tbody>
               </table>
             </div>
+            <p class="empty-state hidden" id="dashboardEmpty">No patients found.</p>
           </section>
         </section>
 
@@ -207,7 +158,26 @@
               <h2 class="panel-title" id="patientsHeading">All Patients</h2>
               <button class="btn btn-primary">+ Add Patient</button>
             </div>
-            <p class="placeholder-text">Patient management will be added here.</p>
+
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Patient ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Department</th>
+                    <th>Doctor</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="patientsTableBody"></tbody>
+              </table>
+            </div>
+            <p class="empty-state hidden" id="patientsEmpty">No patients found.</p>
           </section>
         </section>
 
@@ -225,6 +195,93 @@
 
     </div>
   </div>
+
+  <!-- ============ Add Patient Modal ============ -->
+  <div class="modal-overlay hidden" id="patientModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 class="modal-title" id="modalTitle">Add New Patient</h2>
+        <button type="button" class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      </div>
+
+      <form class="modal-body" id="patientForm" novalidate>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="fieldName">Patient Name <span class="req">*</span></label>
+            <input type="text" class="input" id="fieldName" name="name" />
+            <span class="field-error" id="errorName"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="fieldAge">Age <span class="req">*</span></label>
+            <input type="number" class="input" id="fieldAge" name="age" min="1" step="1" />
+            <span class="field-error" id="errorAge"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="fieldGender">Gender <span class="req">*</span></label>
+            <select class="input" id="fieldGender" name="gender">
+              <option value="">Select gender</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+            <span class="field-error" id="errorGender"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="fieldPhone">Phone <span class="optional">(optional)</span></label>
+            <input type="tel" class="input" id="fieldPhone" name="phone" placeholder="01XXXXXXXXX" />
+            <span class="field-error" id="errorPhone"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="fieldDepartment">Department <span class="req">*</span></label>
+            <select class="input" id="fieldDepartment" name="department">
+              <option value="">Select department</option>
+            </select>
+            <span class="field-error" id="errorDepartment"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="fieldDoctor">Doctor <span class="req">*</span></label>
+            <input type="text" class="input" id="fieldDoctor" name="doctor" placeholder="Dr. ..." />
+            <span class="field-error" id="errorDoctor"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="fieldPriority">Priority <span class="req">*</span></label>
+            <select class="input" id="fieldPriority" name="priority">
+              <option value="">Select priority</option>
+            </select>
+            <span class="field-error" id="errorPriority"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="fieldStatus">Status <span class="req">*</span></label>
+            <select class="input" id="fieldStatus" name="status">
+              <option value="">Select status</option>
+            </select>
+            <span class="field-error" id="errorStatus"></span>
+          </div>
+
+          <div class="form-field">
+            <label for="fieldAdmissionDate">Admission Date <span class="req">*</span></label>
+            <input type="date" class="input" id="fieldAdmissionDate" name="admissionDate" />
+            <span class="field-error" id="errorAdmissionDate"></span>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="modalCancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Patient</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ Toast Notification ============ -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="script.js"></script>
 </body>
